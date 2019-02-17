@@ -1,3 +1,14 @@
+"""
+Raunak Agarwal
+Last Edit: 17/02/2019
+
+python3 pushshift-call.py \
+    -subreddit politics,europe,unitedkingdom,news,worldnews \
+    -year 2010 \
+    -query SCL_OPP_neg-Copy2.txt \
+    -output all_SCL_OPP_neg_2010_18_2.json \
+    -logfile all_SCL_OPP_neg_2010_18_2.txt
+"""
 import random
 import time
 import datetime
@@ -69,11 +80,11 @@ def fetch_specific(start_ut,end_ut,query,subs,logfile):
                 q = query)
         try:
             def is_valid(resp):
-                
+                """Checks for Valid Responses"""
                 return resp.status_code == 200 and resp.json() is not None
             response = requests.get(url)
             if is_valid(response):
-                print("valid: ",query, " ", ts)
+                print("valid: ",query," ",ts)
                 repeat = False
                 response = response.json()
             else:
@@ -81,23 +92,22 @@ def fetch_specific(start_ut,end_ut,query,subs,logfile):
             if repeat:
                 for i in range(25):
                     response = requests.get(url)
-                    print("Retrying: ", i, " ", query, " ", ts)
+                    print("Retrying: ",i," ",query," ",ts)
                     if is_valid(response):
                         response = response.json()
                         repeat = False
                         break
                 if repeat:
-                    print("invalid: ",query, " ", ts)
+                    print("invalid: ",query," ",ts)
                     start_ut = end_ut
                     continue
                 
-
             d = pd.DataFrame(response['data'],columns=cols)
             d['valid'] = d['body'].apply(lambda x: x!='[deleted]' or x!='[removed]' or x is not None)
             d = d[d['valid'] == True]
-    #         d['len'] = d['body'].apply(lambda x: len(x))
-    #         d['valid_len'] = d['len'].apply(lambda x: x<=300 and x>=10)
-    #         d = d[d['valid_len'] == True]
+            # d['len'] = d['body'].apply(lambda x: len(x))
+            # d['valid_len'] = d['len'].apply(lambda x: x<=300 and x>=10)
+            # d = d[d['valid_len'] == True]
             d = d[cols]
             d['body'] = d['body'].apply(lambda x: clean(x))
             d['valid_len'] = d['body'].apply(lambda x: len(x)>=10 and len(x)<=300)
@@ -135,7 +145,7 @@ def clean(text):
     puncts = puncts.replace("?","").replace("!","").replace("\'","").replace(",","")
     translator = str.maketrans(puncts, ' '*len(puncts)) #map punctuation to space
 
-    url_re = re.compile(r'\[([^]]+)\]\(%%URL\)')
+    # url_re = re.compile(r'\[([^]]+)\]\(%%URL\)')
     link_re = re.compile(r'\[([^]]+)\]\(https?://[^\)]+\)')
 
     pre_format_re = re.compile(r'^[\`\*\~]')
@@ -146,7 +156,7 @@ def clean(text):
     text = pre_format_re.sub('', text)
     text = post_format_re.sub('', text)
     text = re.sub(r'\s+', ' ', text)
-    text = url_re.sub('',text)
+    # text = url_re.sub('',text)
     text = link_re.sub('',text)
 
     text = textacy.preprocess.preprocess_text(
