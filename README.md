@@ -1,6 +1,6 @@
 # RedditSent Models
 
-Repository for Sentiment Models on Reddit. 
+This project was created as part of the Advanced Natural Language Processing (ANLP2018) class at Universität Potsdam, Germany.   
 
 ## 1. Benchmarking against the SARC dataset 
 
