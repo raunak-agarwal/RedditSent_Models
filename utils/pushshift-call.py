@@ -34,6 +34,7 @@ def fetch_specific(start_ut,end_ut,query,subs,logfile):
     cols = ['author','body','created_utc','id','score','subreddit','parent_id']
     s = pd.DataFrame(columns=cols)
     while start_ut < terminate_ut:
+        time.sleep(0.2)
         ts = int(start_ut)
         end_ut = start_ut + random.randint(35000,100000)*50
         query = query.strip().replace(' ','+')
@@ -42,26 +43,53 @@ def fetch_specific(start_ut,end_ut,query,subs,logfile):
                 after=start_ut,
                 subreddit=subs,
                 q = query)
-        response = requests.get(url).json()
-        d = pd.DataFrame(response['data'],columns=cols)
-        d['valid'] = d['body'].apply(lambda x: x!='[deleted]' or x!='[removed]' or x is not None)
-        d = d[d['valid'] == True]
-#         d['len'] = d['body'].apply(lambda x: len(x))
-#         d['valid_len'] = d['len'].apply(lambda x: x<=300 and x>=10)
-#         d = d[d['valid_len'] == True]
-        d = d[cols]
-        d['body'] = d['body'].apply(lambda x: clean(x))
-        d['valid_len'] = d['body'].apply(lambda x: len(x)>=10 and len(x)<=300)
-        d = d[d['valid_len'] == True]
-        d = d[cols]
-        #print(ts)
-        start_ut = end_ut
-        with open(logfile,'a') as f:
-            print(datetime.datetime.utcfromtimestamp(ts).strftime(
-                '%Y-%m-%d %H:%M:%S'),file=f)
-            print(url,file=f)
-            print("Total Comments Added: " + str(len(d)),file=f)
-        s = s.append(d,ignore_index=True)
+        try:
+            def is_valid(resp):
+                
+                return resp.status_code == 200 and resp.json() is not None
+            response = requests.get(url)
+            if is_valid(response):
+                print("valid: ",query, " ", ts)
+                repeat = False
+                response = response.json()
+            else:
+                repeat = True
+            if repeat:
+                for i in range(25):
+                    response = requests.get(url)
+                    print("Retrying: ", i, " ", query, " ", ts)
+                    if is_valid(response):
+                        response = response.json()
+                        repeat = False
+                        break
+                if repeat:
+                    print("invalid: ",query, " ", ts)
+                    start_ut = end_ut
+                    continue
+                
+
+            d = pd.DataFrame(response['data'],columns=cols)
+            d['valid'] = d['body'].apply(lambda x: x!='[deleted]' or x!='[removed]' or x is not None)
+            d = d[d['valid'] == True]
+    #         d['len'] = d['body'].apply(lambda x: len(x))
+    #         d['valid_len'] = d['len'].apply(lambda x: x<=300 and x>=10)
+    #         d = d[d['valid_len'] == True]
+            d = d[cols]
+            d['body'] = d['body'].apply(lambda x: clean(x))
+            d['valid_len'] = d['body'].apply(lambda x: len(x)>=10 and len(x)<=300)
+            d = d[d['valid_len'] == True]
+            d = d[cols]
+
+            #print(ts)
+            start_ut = end_ut
+            with open(logfile,'a') as f:
+                print(datetime.datetime.utcfromtimestamp(ts).strftime(
+                    '%Y-%m-%d %H:%M:%S'),file=f)
+                print(url,file=f)
+                print("Total Comments Added: " + str(len(d)),file=f)
+            s = s.append(d,ignore_index=True)
+        except Exception as e:
+            pass
         # time.sleep(0.3)
     s = s.drop_duplicates(subset='id', keep="first")
     return s
