@@ -15,6 +15,13 @@ fields=body,id,subreddit,created_utc,author,score,parent_id&before={before}&afte
 &&sort_type=score&sort=desc&nest_level=1&score=>20&subreddit={subreddit}"
 
 def parse_args():
+    """
+    Parse CLI Arguments
+    Params:
+        None
+    Return: 
+        dict() - Relevant CLI Arguments
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("-subreddit", help="Subreddits to Scrape", type=str)
     parser.add_argument("-year", help="Year", type=str)
@@ -26,10 +33,27 @@ def parse_args():
     return argv
 
 def get_ut(dt):
-    """Return UT for a given DT"""
+    """
+    Return UT for a given DT
+    Params: 
+        dt - Datetime object
+    Return: 
+        int() - Unix timestamp for a datetime object
+    """
     return int(time.mktime(dt.timetuple()))
 
 def fetch_specific(start_ut,end_ut,query,subs,logfile):
+    """
+    Fetch from 'start_ut' to 'end_ut' for a specific query string
+    Params:
+        start_ut - int() - timestamp to start querying
+        end_ut - int() - timestamp to terminate querying
+        query - str() - query string for pushshift (can be an empty string)
+        subs - str() - list of subreddits to query (separated by commas)
+        logfile - str() - location of the logfile
+    Return:
+        pd.DataFrame - A Pandas DataFrame with preprocessed data
+    """
     terminate_ut = end_ut
     cols = ['author','body','created_utc','id','score','subreddit','parent_id']
     s = pd.DataFrame(columns=cols)
@@ -90,11 +114,18 @@ def fetch_specific(start_ut,end_ut,query,subs,logfile):
             s = s.append(d,ignore_index=True)
         except Exception as e:
             pass
-        # time.sleep(0.3)
+
     s = s.drop_duplicates(subset='id', keep="first")
     return s
 
 def clean(text):
+    """
+    Preprocessor
+    Params: 
+        text - str() - text to preprocess
+    Return: 
+        text - str() - preprocessed text
+    """
     parent_symbol = re.compile(r"&gt;.*?\\n\\n")
     user_symbol = re.compile(r"u/ *|r/| /user/*")
     text = re.sub(parent_symbol,"",text)
@@ -130,6 +161,17 @@ def clean(text):
     return re.sub(" {2,}", " ", text.strip())
 
 def query(n,queries,year,subreddit,logfile):
+    """
+    Set query range, iterate over queries doc. Uses fetch_specific()
+    Params:
+        n - str() - output filename
+        queries - list(str) - list of queries
+        year - str() - first year of queries
+        subreddit - str() - list of subreddits to query (separated by commas)
+        logfile - str() - location of the logfile
+    Return:
+        pd.DataFrame - A Pandas DataFrame with combined preprocessed data
+    """
     start_ut = get_ut(datetime.datetime(int(year),1,1))
     end_ut = get_ut(datetime.datetime(2018,12,31))
     cols = ['author','body','created_utc','id','score','subreddit','parent_id']
