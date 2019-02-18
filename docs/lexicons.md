@@ -12,4 +12,12 @@ Lexicons were taken from multiple sources.
 python utils/build_lexicons -lexicon_file data/lexicons/lexicon_file.txt -outfile data/lexicons/new_lexicons.txt 
 `
 
-[SocialSent Lexicon Example](../img/lexicon_1.png)
+**SocialSent Example**
+
+![SocialSent Lexicon Example](../img/lexicon_1.png)
+
+**SCL_OPP Lexicons**
+
+![SCL-OPP Example](../img/lexicon_2.png)
+
+### 
