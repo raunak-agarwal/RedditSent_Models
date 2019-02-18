@@ -1,7 +1,7 @@
 """
-Author: Raunak Agarwal
+Author(s): Raunak Agarwal
 File Created: 14/02/2019
-Last Edit: 17/02/2019
+Last Edit: 18/02/2019
 
 Help: python3 call-pushshift.py -h
 
