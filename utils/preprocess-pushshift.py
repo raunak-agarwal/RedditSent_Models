@@ -40,7 +40,7 @@ def preprocess_df(data):
             yield str(body)
     def preprocess_sents(data):
         for i,doc in enumerate(nlp.pipe(generate_sents(data),batch_size=1000, n_threads=-1)):
-            row = data.loc[i].copy()
+            row = data.loc[i]
             noun_chunks = [tok for chunk in doc.noun_chunks for tok in chunk.lower_.split() if tok not in STOP_WORDS]
             ents = []
             relations = []
