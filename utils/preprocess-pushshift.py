@@ -81,6 +81,7 @@ if __name__ == "__main__":
     outfile = argv.outfile
     df = pd.read_json(infile,orient='records')
     df = df.drop_duplicates(subset='id', keep="first")
+    df = df.reset_index(drop=True)
     print(df.shape)
     df['corpus_1'] = argv.corpus_1
     df['corpus_2'] = argv.corpus_2
