@@ -22,3 +22,5 @@ This project is created as a part of the Advanced Natural Language Processing (A
 ## 3. Data Annotation through Prodigy 
 
 ![Prodigy](img/prodigy-example.gif)
+
+[Try Prodigy](https://redditsent-corpus.serveo.net/) with our r/politics corpus. 
