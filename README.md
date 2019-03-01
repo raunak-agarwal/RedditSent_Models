@@ -20,7 +20,7 @@ This project is created as a part of the Advanced Natural Language Processing (A
 Self-Annotated Reddit Corpus [(*SARC*)](https://github.com/NLPrinceton/SARC) is the largest publicly available annotated corpus for reddit comments. We utilise comments from the balanced section of the corpus to benchmark our future models. 
 
 ### 1.1 SARC Baseline
-The SARC corpus provides a simple baseline: Average of glove embeddings fed into a logit classifier. We provide several different architectures which perform better. 
+The SARC corpus provides a simple baseline: Average of glove embeddings fed into a logit classifier. We describe several different architectures which perform better. 
 
 ### 1.2 Byte-Pair Encoding
 Byte-Pair Encodings or [*BPE*](https://github.com/bheinzerling/bpemb) provide tokenisation with subword-level features. We feed this into a TF-IDF + Logit pipeline. 
@@ -28,7 +28,7 @@ Byte-Pair Encodings or [*BPE*](https://github.com/bheinzerling/bpemb) provide to
 ([See](utils/classifiers/baseline+subword.ipynb))
 
 ### 1.3 Fasttext + Pretrained Vectors
-Using the corpus described in Part 2, we create a dense unsupervised representation of the reddit vocabulary. These "pretrained" vectors are then finetuned using the SARC training files, and then we apply a softmax over the dense representation. 
+Using the corpus described in Part 2, we create a dense unsupervised representation of the reddit vocabulary. These "pretrained" vectors are then finetuned using the SARC training files, after which we apply a softmax. 
 
 ([See](docs/vectors.md))
 
@@ -45,7 +45,7 @@ Using the corpus described in Part 2, we create a dense unsupervised representat
 
 ## 2. Building Topical Corpora via *Pushshift*
 
-[*Pushshift*](http://pushshift.io/) is a free service that ingests real-time comments from Reddit. We query its API to create a corpus of comments from 5 of the biggest English-language political subreddits - [r/politics](http://reddit.com/r/politics), [r/news](http://reddit.com/r/news/), [r/worldnews](http://reddit.com/r/worldnews/), [r/unitedkingdom](http://reddit.com/r/unitedkingdom), [r/europe](http://reddit.com/r/europe/). The corpus is available [**here**](https://tinyurl.com/y5rkylj4).
+[*Pushshift*](http://pushshift.io/) is a free service that ingests real-time comments from Reddit. We query its API to create a corpus of comments from 5 of the biggest English-language political subreddits - [r/politics](http://reddit.com/r/politics), [r/news](http://reddit.com/r/news/), [r/worldnews](http://reddit.com/r/worldnews/), [r/unitedkingdom](http://reddit.com/r/unitedkingdom), [r/europe](http://reddit.com/r/europe/). The corpus has around 7.5m comments and  150m word tokens. It is available [**here**](https://tinyurl.com/y5rkylj4).
 
 
 1. [Lexicons](docs/lexicons.md)
@@ -55,7 +55,7 @@ Using the corpus described in Part 2, we create a dense unsupervised representat
 
 ## 3. Data Annotation using *Prodigy* 
 
-Using the corpus created above, we annotate a subset of comments from [r/politics](https://reddit.com/r/politics/). To perform data annotation, we use [*Prodigy*](https://prodi.gy/) with a custom [recipe](utils/recipe.py). 
+Using the corpus created above, we annotate a subset of comments from [r/politics](https://reddit.com/r/politics/). To perform data annotation, we use [*Prodigy*](https://prodi.gy/) with a custom [recipe](utils/prodigy/recipe.py). 
 
 
 ![Prodigy](img/prodigy-example.gif)
