@@ -3,8 +3,9 @@ Raunak Agarwal
 File Created: 17/02/2019
 Last Edit: 17/02/2019
 
-python3 preprocess-pushshift.py -
-
+python -i preprocess-pushshift.py \
+    -infile ../data/test_data.json -corpus_1 intersection -corpus_2 pos 
+    -outfile ../data/test2.jsonl -ignore ignore.txt 
 """
 import argparse
 import json
@@ -40,7 +41,7 @@ def preprocess_df(data):
             yield str(body)
     def preprocess_sents(data):
         for i,doc in enumerate(nlp.pipe(generate_sents(data),batch_size=1000, n_threads=-1)):
-            row = data.loc[i]
+            row = data.loc[i].copy()
             noun_chunks = [tok for chunk in doc.noun_chunks for tok in chunk.lower_.split() if tok not in STOP_WORDS]
             ents = []
             relations = []
@@ -58,13 +59,12 @@ def preprocess_df(data):
             row['chunks'] = noun_chunks if len(noun_chunks) else None
             nonlocal new_data
             new_data = new_data.append(row)
-            if not i % 1000: print(i)
-            # if i==100:
-            #     return new_data
+            if not i % 100: print(i)
+            if i==100:
+                return new_data
         return new_data
     return(preprocess_sents(data))
-# test = preprocess_df(data[:100])
-# print(test['chunks'])
+
 def operate(df,fname):
     df = preprocess_df(df)
     df.astype(str).to_json(fname,orient="records",lines=True)
@@ -100,9 +100,8 @@ if __name__ == "__main__":
             print(len(df))
             df = df[~df['id'].isin(ignore_ids)]
             print(len(df))
-            df = df.reset_index(drop=True)
+        df = df.reset_index(drop=True)
         ids = operate(df,outfile)
         with open(argv.ignore, 'a') as f:
             for item in ids:
                 f.write("%s\n" % item)
-
