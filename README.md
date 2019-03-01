@@ -20,7 +20,7 @@ This project is created as a part of the Advanced Natural Language Processing (A
 Self-Annotated Reddit Corpus [(*SARC*)](https://github.com/NLPrinceton/SARC) is the largest publicly available annotated corpus for reddit comments. We utilise comments from the balanced section of the corpus to benchmark our future models. 
 
 ### 1.1 SARC Baseline
-The SARC corpus provides a simple baseline: Average of glove embeddings fed into a logit classifier. We provide several different architecture which perform better. 
+The SARC corpus provides a simple baseline: Average of glove embeddings fed into a logit classifier. We provide several different architectures which perform better. 
 
 ### 1.2 Byte-Pair Encoding
 Byte-Pair Encodings or [*BPE*](https://github.com/bheinzerling/bpemb) provide tokenisation with subword-level features. We feed this into a TF-IDF + Logit pipeline. 
