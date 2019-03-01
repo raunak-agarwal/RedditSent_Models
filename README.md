@@ -55,7 +55,7 @@ Using the corpus described in Part 2, we create a dense unsupervised representat
 
 ## 3. Data Annotation using *Prodigy* 
 
-Using the corpus created above, we annotate a subset of comments from [r/politics](https://reddit.com/r/politics/). To perform data annotation, we use [*Prodigy*](https://prodi.gy/) with a custom [recipe](utils/prodigy/recipe.py). 
+Using the corpus created above, we annotate a subset of comments from [r/politics](https://reddit.com/r/politics/). To perform data annotation, we use [*Prodigy*](https://prodi.gy/) with a custom [recipe](utils/prodigy/recipe.py). Annotations are available [**here**](https://tinyurl.com/y5rkylj4).
 
 
 ![Prodigy](img/prodigy-example.gif)
