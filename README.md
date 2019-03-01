@@ -28,7 +28,7 @@ Byte-Pair Encodings or [*BPE*](https://github.com/bheinzerling/bpemb) provide to
 ([See](utils/classifiers/baseline+subword.ipynb))
 
 ### 1.3 Fasttext + Pretrained Vectors
-Using the corpus described in Part 2, we create a dense unsupervised representation of the reddit vocabulary. These "pretrained" vectors are then finetuned using the SARC training files, after which we apply a softmax. 
+Using the corpus described in Part 2, we create a dense unsupervised representation of the reddit vocabulary. These "pretrained" vectors are then finetuned using the SARC training files on a softmax loss function. 
 
 ([See](docs/vectors.md))
 
