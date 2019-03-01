@@ -13,6 +13,8 @@ This project is created as a part of the Advanced Natural Language Processing (A
 
 `pip install -r requirements.txt`
 
+`spacy download en_core_web_lg`
+
 ## 1. Benchmarking against the *SARC* dataset 
 
 Self-Annotated Reddit Corpus [(*SARC*)](https://github.com/NLPrinceton/SARC) is the largest publicly available annotated corpus for reddit comments. We utilise comments from the balanced section of the corpus to benchmark our future models. 
@@ -36,7 +38,7 @@ Using the corpus described in Part 2, we create a dense unsupervised representat
 ([Hyperparam Search Results](results/bert_param_selection.txt))
 
 
-1.5 Results
+### Results
 
 ([See](docs/results.md))
 
