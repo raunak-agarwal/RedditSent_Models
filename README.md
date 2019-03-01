@@ -1,6 +1,13 @@
 # RedditSent Models
 
-This project was created as a part of the Advanced Natural Language Processing (ANLP 2018) course at Universität Potsdam, Germany.   
+This project is created as a part of the Advanced Natural Language Processing (ANLP 2018) course at Universität Potsdam, Germany.   
+
+## Setup
+
+`sudo apt-get install python3-venv`
+`virtualenv --python=python3.6 venv`
+`source venv/bin/activate`
+`pip install -r requirements.txt`
 
 ## 1. Benchmarking against the SARC dataset 
 
@@ -10,5 +17,8 @@ This project was created as a part of the Advanced Natural Language Processing (
 1. [Lexicons](docs/lexicons.md)
 2. [Data Scrape](docs/data.md)
 3. [Filtering and Preprocessing](docs/preprocessind.md)
+4. [Word Vectors](docs/vectors.md)
 
-## 3. Data Annotation and Classification
+## 3. Data Annotation through Prodigy 
+
+![Prodigy](img/prodigy-example.gif)
