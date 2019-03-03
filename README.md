@@ -5,6 +5,27 @@ This project is created as a part of the Advanced Natural Language Processing (A
 
 ## 0. Setup
 
+**Note**: This code has been tested only on Linux but it shouldn't be difficult to rebuild everything on OSX/Windows. 
+
+### Linux:
+
+Install Python 3.6:
+
+`sudo add-apt-repository ppa:deadsnakes/ppa`
+
+`sudo apt-get update`
+
+`sudo apt-get install python3.6`
+
+
+Clone the Repo:
+
+`sudo apt-get install build-essential python3.6-dev git`
+
+`git clone git@github.com:raunak-agarwal/RedditSent-Models.git `
+
+Setup the virtual environment: 
+
 `sudo apt-get install python3-venv`
 
 `virtualenv --python=python3.6 venv`
@@ -45,7 +66,7 @@ Using the corpus described in Part 2, we create a dense unsupervised representat
 
 ## 2. Building Topical Corpora via *Pushshift*
 
-[*Pushshift*](http://pushshift.io/) is a free service that ingests real-time comments from Reddit. We query its API to create a corpus of comments from 5 of the biggest English-language political subreddits - [r/politics](http://reddit.com/r/politics), [r/news](http://reddit.com/r/news/), [r/worldnews](http://reddit.com/r/worldnews/), [r/unitedkingdom](http://reddit.com/r/unitedkingdom), [r/europe](http://reddit.com/r/europe/). The corpus has around 7.5m comments and  150m word tokens. It is available [**here**](https://tinyurl.com/y5rkylj4).
+[*Pushshift*](http://pushshift.io/) is a free service that ingests real-time comments from Reddit. We query its API to create a corpus of comments from 5 of the biggest English-language political subreddits - [r/politics](http://reddit.com/r/politics), [r/news](http://reddit.com/r/news/), [r/worldnews](http://reddit.com/r/worldnews/), [r/unitedkingdom](http://reddit.com/r/unitedkingdom), [r/europe](http://reddit.com/r/europe/). The corpus has around 7.5m comments and  150m word tokens. Download the preprocessed corpus [**here**](https://tinyurl.com/y5rkylj4).
 
 
 1. [Lexicons](docs/lexicons.md)
@@ -66,7 +87,13 @@ Using the corpus created above, we annotate a subset of comments from [r/politic
 [Try Prodigy](https://redditsent-corpus.serveo.net/) with our r/politics corpus. 
 
 
-### TODO
+## Contributors
+
+[Raunak Agarwal](https://github.com/raunak-agarwal)
+
+[Luka Borec](https://github.com/lukaborec)
+
+## TODO
 0. Finish Documentation
 1. Dockerize
 2. Extend Annotations
@@ -74,3 +101,13 @@ Using the corpus created above, we annotate a subset of comments from [r/politic
 4. Move files to S3
 5. Add Sentence Vectors
 6. Citations
+
+
+## LICENSE
+
+[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+TL;DR: You may copy, distribute and modify the software as long as you track changes/dates in source files. Any modifications to the software including (via compiler) code must also be made available under the GPL along with build & install instructions.
+
+
+
