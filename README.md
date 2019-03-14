@@ -2,6 +2,8 @@
 
 This project is created as a part of the Advanced Natural Language Processing (ANLP 2018) course at Universität Potsdam, Germany.   
 
+[Paper](https://tinyurl.com/y29jp7d6)
+
 
 ## 0. Setup
 
@@ -15,18 +17,14 @@ Install Python 3.6:
 
 `sudo apt-get update`
 
-`sudo apt-get install python3.6`
+`sudo apt-get install build-essential python3.6 python3.6-dev python3-venv git`
 
 
 Clone the Repo:
 
-`sudo apt-get install build-essential python3.6-dev git`
-
 `git clone git@github.com:raunak-agarwal/RedditSent-Models.git `
 
 Setup the virtual environment: 
-
-`sudo apt-get install python3-venv`
 
 `virtualenv --python=python3.6 venv`
 
@@ -44,7 +42,7 @@ Self-Annotated Reddit Corpus [(*SARC*)](https://github.com/NLPrinceton/SARC) is 
 The SARC corpus provides a simple baseline: Average of glove embeddings fed into a logit classifier. We describe several different architectures which perform better. 
 
 ### 1.2 Byte-Pair Encoding
-Byte-Pair Encodings or [*BPE*](https://github.com/bheinzerling/bpemb) provide tokenisation with subword-level features. We feed this into a TF-IDF + Logit pipeline. 
+Byte-Pair Encodings or [*BPE*](https://github.com/bheinzerling/bpemb) provide tokenisation with subword segmentation. We feed this into a TF-IDF + Logit pipeline. 
 
 ([See](utils/classifiers/baseline+subword.ipynb))
 
