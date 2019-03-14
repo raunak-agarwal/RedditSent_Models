@@ -1,6 +1,6 @@
 *RedditSent* comes with dense word vectors (100d) trained on unsupervised subword features (between 3 and 6 characters). These vectors were trained using Facebook's [*fasttext*](https://fasttext.cc/). 
 
-## Part 1. Recreate the unsupervised model:
+## Part 1. Recreate the unsupervised model
 
 **Note**: This section needs a file `dump.txt` which is just a bunch of sentences escaped with a `\n` )
 
